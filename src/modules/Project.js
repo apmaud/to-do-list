@@ -22,11 +22,13 @@ export default class Project {
         return taskList
     }
 
-    addTask(newTaskName){
-        if (this.taskList.find((task) => task.getName() === newTaskName.name)) 
-            {return}
-        else 
-            {this.taskList.push(newTaskName)}
+    addTask(newTask){
+        if (this.taskList.find((task) => task.getName() === newTask.name)){
+            return
+        }
+        else {
+            this.taskList.push(newTask)
+        }
     }
 
     deleteTask(delTaskName){
