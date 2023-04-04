@@ -1,5 +1,4 @@
 import Project from './Project'
-import Task from './Task'
 
 export default class List {
     constructor(){
@@ -31,7 +30,39 @@ export default class List {
         this.projectList.splice(this.projectList.indexOf(selectedProject), 1)
     }
 
-    findProject(projectQuery){
-        
+    getExactProject(query){
+        return this.projectList.find((project) => project.getName() === query)
     }
+
+    getContainsProject(query){
+        return this.projectList.some((project) => project.getName() === query)
+    }
+
+    getEveryTaskToday(){
+        this.dailyTaskList = []
+        this.projectList.forEach((project) => {
+            const dailyTasks = project.getDailyTasks()
+            this.dailyTaskList.push(dailyTasks)
+        })
+        return this.dailyTaskList
+    }
+
+    getEveryTaskWeekly(){
+        this.weeklyTaskList = []
+        this.projectList.forEach((project) => {
+            const weeklyTasks = project.getWeeklyTasks()
+            this.weeklyTaskList.push(weeklyTasks)
+        })
+        return this.weeklyTaskList
+    }
+
+    refreshToday() {
+        this.getExactProject('Due Today').taskList = getEveryTaskToday()
+    }
+
+    refreshWeek() {
+        this.getExactProject('Due This Week').taskList = this.getEveryTaskWeekly()
+    }
+
+
 }
